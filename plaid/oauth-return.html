@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plaid OAuth Return</title>
+  <noscript><meta http-equiv="refresh" content="0;url=/"></noscript>
+  <style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;padding:24px}</style>
+</head>
+<body>
+  <h1>Redirecting…</h1>
+  <p>Sending you back to your local app to complete Plaid OAuth.</p>
+  <script>
+    (function () {
+      // 🔧 Update this if your local callback is different
+      var LOCAL_CALLBACK = 'http://localhost:3000/plaid/oauth/callback';
+      var qs = window.location.search || '';
+      if (!qs) {
+        document.body.insertAdjacentHTML('beforeend','<p>Missing query string from Plaid. Nothing to forward.</p>');
+        return;
+      }
+      // Preserve the full query string so /item/public_token/exchange works
+      var url = LOCAL_CALLBACK + (LOCAL_CALLBACK.indexOf('?')===-1 ? qs : '&' + qs.slice(1));
+      window.location.replace(url);
+    })();
+  </script>
+</body>
+</html>
